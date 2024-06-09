@@ -18,16 +18,12 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Object> getAll(@RequestParam(name = "page", defaultValue = "0") int page,
                                     @RequestParam(name = "size", defaultValue = "8") int size) {
-            return ResponseEntity.ok(productService.getAll(page, size));
+        return ResponseEntity.ok(productService.getAll(page, size));
     }
 
     @GetMapping("/{productId}")
     public ResponseEntity<Object> getById(@PathVariable Long productId) {
-        try {
             return ResponseEntity.ok(productService.getProductById(productId));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
     }
 
     @GetMapping("/categories/{categoryId}")
@@ -35,11 +31,7 @@ public class ProductController {
                                                 @RequestParam(name = "productId", defaultValue = "0") Long productId,
                                                 @RequestParam(name = "page", defaultValue = "0") int page,
                                                 @RequestParam(name = "size", defaultValue = "8") int size) {
-        try {
-            return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, productId, page, size));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, productId, page, size));
     }
 
     @PostMapping("/filter")
